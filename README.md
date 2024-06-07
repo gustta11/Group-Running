@@ -6,12 +6,12 @@
 # Tencnologias 
 
 **Front-End**
+- JavaScript
 - React
+- Vite
 
 **Banck-End**
-
-- JavaScript
 - Node
-- Express
+- Express.js
   
   
