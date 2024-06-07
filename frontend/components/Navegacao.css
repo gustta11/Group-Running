@@ -1,0 +1,60 @@
+.layout-geral-navegacao {
+    display: flex;
+    flex-direction: column;
+}
+
+.layout-links-navegacao-cadastro {
+    display: grid;
+    grid-template-rows: 1fr 5fr 1fr;
+    grid-template-areas: 'H' 'M' 'F';
+    width: 412px;
+    height: 412px;
+    flex-shrink: 0;
+    border-radius: 10px;
+    background: #FFF;
+
+}
+
+.layout-titulo-navegacao-cadastro {
+    display: flex;
+    width: 412px;
+    padding: 10px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    border-radius: 10px;
+    background: #FFF;
+    margin-bottom: 10px;
+}
+
+.layout-botoes-navegacao {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    grid-area: M;
+}
+
+.botao-grupo {
+    display: inline-flex;
+    padding: 10px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin: 1rem;
+}
+
+.layout-header-navegacao {
+    grid-area: H;
+    display: flex;
+    justify-content: flex-start;
+    padding: 1rem;
+}
+
+.layout-footer-navegacao {
+    grid-area: F;
+    display: flex;
+    justify-content: flex-end;
+    padding: 1rem;
+}
+
