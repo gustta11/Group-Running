@@ -25,7 +25,7 @@ const Navegacao = () => {
         </div>
         <div className="layout-botoes-navegacao">
           <Link to='/Grupo'><button className="botao-grupo">GRUPO</button></Link>
-          <Link to=''><button className="botao-grupo">ACESSORIA</button></Link>
+          <Link to='/Acessoria'><button className="botao-grupo">ACESSORIA</button></Link>
         </div>
         <div className="layout-footer-navegacao">
           <svg

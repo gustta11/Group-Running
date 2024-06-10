@@ -1,0 +1,16 @@
+.layout-geral-home{
+    width: 412px;
+    height: auto;
+}
+
+.layout-nav-home{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+}
+
+.botaos{
+    margin-right: 1rem;
+
+}
