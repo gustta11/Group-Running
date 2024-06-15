@@ -1,0 +1,56 @@
+.layout-geral-grupo{
+    display: grid;
+    grid-template-rows: 1fr 5fr 1fr;
+    grid-template-areas: 'H' 'M' 'F';
+    width: 412px;
+    height: 612px;
+    flex-shrink: 0;
+    background-color: white;
+    border-radius: 10px;
+}
+
+form{
+    grid-area: M;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.header-form-grupo{
+    grid-area: H;
+    display: flex;
+    justify-content: flex-start;
+    padding: 1rem;
+}
+
+input{
+    all: unset;
+}
+
+.inputs{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    border: 1px solid black;
+    border-radius: 10px;
+    margin-top: 1rem;
+    padding: 0.5rem;
+    color: black;
+}
+
+button{
+    margin-top: 10px;
+}
+
+.botao:hover{
+    background-color: yellowgreen;
+    border: none;
+}
+.footer-form-group{
+    grid-area: F;
+    display: flex;
+    justify-content: flex-end;
+    padding: 1rem;
+}

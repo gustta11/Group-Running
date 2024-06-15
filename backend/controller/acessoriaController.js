@@ -24,25 +24,25 @@ export async function getAllAcessoria(req, res){
 }
 
 export async function updateAcessoria(req,res){
-    const{id} = req.params
-    console.log('Dados recebidos do front', {id})
+    const{id_acessoria} = req.params
+    console.log('Dados recebidos do front', {id_acessoria})
     const {nome_acessoria,contato_acessoria,finalidade_acessoria,cidade_acessoria,estado_acessoria,valor_acessoria} = req.body
-    update(nome_acessoria,contato_acessoria,finalidade_acessoria,cidade_acessoria,estado_acessoria,valor_acessoria,id, (err, result) =>{
+    update(nome_acessoria,contato_acessoria,finalidade_acessoria,cidade_acessoria,estado_acessoria,valor_acessoria,id_acessoria, (err, result) =>{
         if(err){
             res.status(500).json({error:err.message});
             return
         }
-        res.send('Acessoria atualizada com sucesso')
+        res.status(201).json({mensagem:'acessoria atualizado'})
     })
 }
 
 export async function deleteAcessoria(req,res){
-    const {id} = req.params
-    deleteAcesso(id,(err,result) =>{
+    const {id_acessoria} = req.params
+    deleteAcesso(id_acessoria,(err,result) =>{
         if(err){
             res.status(500).json({error:err.message})
             return
         }
-        res.send('Acessoria excluída com sucesso')
+        res.status(201).json({mensagem:'Acessoria excluído'})
     })
 }
