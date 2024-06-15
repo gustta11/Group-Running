@@ -10,18 +10,6 @@ export function create(nome_acessoria,contato_acessoria,finalidade_acessoria,cid
 export function update(nome_acessoria,contato_acessoria,finalidade_acessoria,cidade_acessoria,estado_acessoria,valor_acessoria, id_acessoria, callback){
     connection.query('UPDATE acessoria SET nome_acessoria = ?, contato_acessoria = ?, finalidade_acessoria = ?, cidade_acessoria = ?, estado_acessoria = ?, valor_acessoria = ?, activo_acessoria = 1 WHERE id_acessoria = ?', [nome_acessoria,contato_acessoria,finalidade_acessoria,cidade_acessoria,estado_acessoria,valor_acessoria, id_acessoria], callback)
 }
-export function deleteAcesso(id_acessoria, callback) {
-    connection.query('UPDATE acessoria SET activo_acessoria = 0 WHERE id_acessoria = ?', [id_acessoria], (err, result) => {
-        if (err) {
-            console.error("Erro ao tentar excluir acessoria:", err);
-            callback(err, null);
-            return;
-        }
-        if (result.affectedRows === 0) {
-            const error = new Error(`Acessoria com id ${id_acessoria} não encontrado.`);
-            callback(error, null);
-            return;
-        }
-        callback(null, result);
-    });
+export function deleteAcesso(id_acessoria, callback){
+    connection.query('UPDATE  acessoria SET activo_acessoria = 0 WHERE id_acessoria = ?', [id_acessoria], callback)
 }
