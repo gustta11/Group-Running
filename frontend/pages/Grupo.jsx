@@ -1,37 +1,60 @@
 import './Grupo.css'
 import {useState} from 'react'
+import { useForm } from "react-hook-form" 
+import { yupResolver } from "@hookform/resolvers/yup"
+import * as yup from 'yup'
+
+const tellValidacao = /^\(\d{2}\) \d{5}-\d{4}$|^\d{11}$/;
+
+
+const schema = yup.object().shape({
+  nome_grupo:yup.string().required('Campo obrigatório').min(3,'Deve ter no mínimo 3 caracteres'),
+  contato_grupo:yup.string().required('Campo obrigatório').matches(tellValidacao, 'Formato de número inválido'),
+  finalidade_grupo:yup.string().required('Campo obrigatório'),
+  cidade_grupo:yup.string().required('Campo obrigatório'),
+  estado_grupo:yup.string().required('Campo obrigatório')
+})
+
 
 
 const Grupo =()=>{
 
-  const[valores, setValores] = useState({
-    nome_grupo:'',
-    contato_grupo:'',
-    finalidade_grupo:'',
-    cidade_grupo:'',
-    estado_grupo:'',
-  })
 
-    const handleChange = (e)=>{
-      const{name,value} = e.target
-      setValores(prevState =>({...prevState, [name]:value}))
-    }
+  const [mensagemDeSucesso, setMensagem] = useState('')
 
-    const handleSubmit = async (e)=>{
-      e.preventDefault()
+  const {
+    register,
+    handleSubmit,
+    reset,
+    watch,
+    formState: { errors },
+  } = useForm({resolver:yupResolver(schema)})
+
+
+    const onSubmit = async (data)=>{
+
+
+    
+      
 
       try{
-          console.log('Dados a serem enviados:',valores)
+          console.log('Dados a serem enviados:',data)
           const response = await fetch('http://localhost:3000/grupo', {
               method:'POST',
               headers:{
                   'Content-Type':'application/json'
               },
-              body:JSON.stringify(valores)
+              body:JSON.stringify(data)
           
               
 
           })
+          if (response.ok){
+            setMensagem('Dados cadastrados com sucesso')
+            reset()
+          }else{
+            setMensagem('Erro ao enviar dados.')
+          }
           const json = await response.json()
           console.log(response)
           console.log(json)
@@ -46,51 +69,49 @@ const Grupo =()=>{
         <div className="header-form-grupo">
       
         </div>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit(onSubmit)}>
           <input
             type="text"
-            name="nome_grupo"
-            value={valores.nome_grupo}
             placeholder="NOME"
-            onChange={handleChange}
+            {...register('nome_grupo')}
             className="inputs"
           />
+          {errors.nome_grupo && <span className='error'>{errors.nome_grupo.message}</span>}
           <input
             type="text"
             name="contato_grupo"
-            value={valores.contato_grupo}
+            {...register('contato_grupo')}
             placeholder="CONTATO"
-            onChange={handleChange}
             className="inputs"
           />
+          {errors.contato_grupo && <span className='error'>{errors.contato_grupo.message}</span>}
           <input
             type="text"
-            name="finalidade_grupo"
-            value={valores.finalidade_grupo}
+            {...register('finalidade_grupo')}
             placeholder="FINALIDADE"
-            onChange={handleChange}
             className="inputs"
           />
+          {errors.finalidade_grupo && <span className='error'>{errors.finalidade_grupo.message}</span>}
           <input
             type="text"
-            name="cidade_grupo"
-            value={valores.cidade_grupo}
+            {...register('cidade_grupo')}
             placeholder="CIDADE"
-            onChange={handleChange}
             className="inputs"
           />
+          {errors.cidade_grupo && <span className='error'>{errors.cidade_grupo.message}</span>}
           <input
             type="text"
-            name="estado_grupo"
-            value={valores.estado_grupo}
+            {...register('estado_grupo')}
             placeholder="ESTADO"
-            onChange={handleChange}
             className="inputs"
           />
+          {errors.estado_grupo && <span className='error'>{errors.estado_grupo.message}</span>}
           <button  type='submit' className="botao">Cadastrar</button>
+          {mensagemDeSucesso && <p className='mensagemSucesso'>{mensagemDeSucesso}</p>}
         </form>
         <div className="footer-form-group">
-      
+       
+
         </div>
       </div>
     );

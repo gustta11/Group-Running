@@ -1,18 +1,4 @@
-ul{
-    background-color: white;
-    height: auto;
-    width: 200px;
-    padding: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    gap: 20px;
-    margin-top: 15px;
-    border-radius: 10px;
-    color: black;
-    box-shadow: 3px 3px 8px black;
-}
+
 
 .layout-geral-consulta{
     display: flex;

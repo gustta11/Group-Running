@@ -1,37 +1,58 @@
 import './Acessoria.css'
 import './Grupo.css'
 import {useState} from 'react'
+import { useForm } from "react-hook-form" 
+import { yupResolver } from "@hookform/resolvers/yup"
+import * as yup from 'yup'
+
+const tellValidacao = /^\(\d{2}\) \d{5}-\d{4}$|^\d{11}$/;
+
+const schema = yup.object().shape({
+    nome_acessoria: yup.string().required('Nome é obrigatório').min(3,'Deve ter no mínimo 3 caracteres'),
+    contato_acessoria: yup.string('Digite um número válido').required('Campo obrigatório').matches(tellValidacao,'Formato inválido de número'),
+    finalidade_acessoria: yup.string().required('Finalidade é obrigatória'),
+    cidade_acessoria: yup.string().required("Cidade é obrigatória"),
+    estado_acessoria: yup.string().required("Estado é obrigatório"),
+    valor_acessoria: yup.number('Digite um número').positive('Digite um valor positivo').required("Valor é obrigatório")
+
+})
+
+
 
 const Acessoria =()=>{
 
-  const[valores, setValores] = useState({
-    nome_acessoria:'',
-    contato_acessoria:'',
-    finalidade_acessoria:'',
-    cidade_acessoria:'',
-    estado_acessoria:'',
-    valor_acessoria:''
-  })
+  const [mensagemDeSucesso, setMensagem] = useState('')
 
-    const handleChange = (e)=>{
-      const{name,value} = e.target
-      setValores(prevState =>({...prevState, [name]:value}))
-    }
+  const {
+    register,
+    handleSubmit,
+    reset,
+    watch,
+    formState: { errors },
+  } = useForm({resolver:yupResolver(schema)})
 
-    const handleSubmit = async (e)=>{
-      e.preventDefault()
+
+  
+    const onSubmit = async (data)=>{
+      
 
       try{
-          console.log('Dados a serem enviados:',valores)
+          console.log('Dados a serem enviados:',data)
           const response = await fetch('http://localhost:3000/acessoria', {
               method:'POST',
               headers:{
                   'Content-Type':'application/json'
               },
-              body:JSON.stringify(valores)
+              body:JSON.stringify(data)
 
           })
-
+          
+          if(response.ok){
+            setMensagem('Dados cadastrados com sucesso!')
+            reset()
+          }else{
+            setMensagem('Erro ao cadastrar os dados')
+          }
           const json = await response.json()
           console.log(response)
           console.log(json)
@@ -46,56 +67,51 @@ const Acessoria =()=>{
         <div className="header-form-acessoria">
     
         </div>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit(onSubmit)}>
           <input
             type="text"
-            name="nome_acessoria"
-            value={valores.nome_acessoria}
             placeholder="NOME"
-            onChange={handleChange}
+            {...register('nome_acessoria')}
             className="inputs"
           />
+          {errors.nome_acessoria && <span className='error'>{errors.nome_acessoria.message}</span>}
           <input
             type="text"
-            name="contato_acessoria"
-            value={valores.contato_acessoria}
+            {...register('contato_acessoria')}
             placeholder="CONTATO"
-            onChange={handleChange}
             className="inputs"
           />
+          {errors.contato_acessoria && <span className='error'>{errors.contato_acessoria.message}</span>}
           <input
             type="text"
-            name="finalidade_acessoria"
-            value={valores.finalidade_acessoria}
             placeholder="FINALIDADE"
-            onChange={handleChange}
+            {...register('finalidade_acessoria')}
             className="inputs"
           />
+          {errors.finalidade_acessoria && <span className='error'>{errors.finalidade_acessoria.message}</span>}
           <input
             type="text"
-            name="cidade_acessoria"
-            value={valores.cidade_acessoria}
+            {...register('cidade_acessoria')}
             placeholder="CIDADE"
-            onChange={handleChange}
             className="inputs"
           />
+          {errors.cidade_acessoria && <span className='error'>{errors.cidade_acessoria.message}</span>}
           <input
             type="text"
-            name="estado_acessoria"
-            value={valores.estado_acessoria}
+            {...register('estado_acessoria')}
             placeholder="ESTADO"
-            onChange={handleChange}
             className="inputs"
           />
+          {errors.estado_acessoria && <span className='error'>{errors.estado_acessoria.message}</span>}
           <input
             type="text"
-            name="valor_acessoria"
-            value={valores.valor_acessoria}
+            {...register('valor_acessoria')}
             placeholder="VALOR"
-            onChange={handleChange}
             className="inputs"
           />
+          {errors.valor_acessoria && <span className='error'>{errors.valor_acessoria.message}</span>}
           <button type='submit' className="botao">Cadastrar</button>
+          {mensagemDeSucesso && <p className='mensagemSucesso'>{mensagemDeSucesso}</p>}
         </form>
         <div className="footer-form-acessoria">
   

@@ -54,3 +54,15 @@ button{
     justify-content: flex-end;
     padding: 1rem;
 }
+
+.error{
+    color: red;
+    margin-top: 2px;
+    font-size: 0.9rem;
+}
+
+.mensagemSucesso {
+    color: green;
+    font-weight: bold;
+    margin-top: 20px;
+  }
