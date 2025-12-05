@@ -1,5 +1,5 @@
 # Sistema de CRUD Running Group
-- Sitema criado com o objetivo de testar meus conhecimentos em CRUD, utilizei como tema a corrida de rua para a criação do sistema, sistema requerido pelo professor Marcos Vinícius do Senai-Alagoinhas.
+- Sitema criado com o objetivo de testar meus conhecimentos em CRUD, utilizei como tema a corrida de rua para a criação do sistema.
 
 ## Funcionalidades
 
